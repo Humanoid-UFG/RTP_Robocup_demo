@@ -44,8 +44,8 @@ The containerized structure of the project ensures a consistent and isolated env
 
 Build the Docker images for the Jetson environment:
 ```bash
-docker buildx build -f dockerfile.jetson -t robocup_demo .
-docker buildx build -f dockerfile.zed -t zed .
+docker buildx build -f dockerfile.jetson -t robocup_demo_image
+docker buildx build -f dockerfile.zed -t zed
 ```
 
 > This creates the base images. The robocup_demo image will be finalized after compilation in step 4.
@@ -86,7 +86,7 @@ Find the container ID and commit the changes:
 docker ps
 
 # Commit the container with compiled code
-docker commit <CONTAINER_ID> robocup_demo
+docker commit <CONTAINER_ID> robocup_demo_image
 ```
 
 > This saves the compiled state into the image. If you skip this step, the compilation will be lost.
@@ -116,7 +116,7 @@ exit
 
 # 3. Commit changes (in new terminal)
 docker ps
-docker commit <CONTAINER_ID> robocup_demo
+docker commit <CONTAINER_ID> robocup_demo_image
 
 # 4. Restart services
 docker compose down
