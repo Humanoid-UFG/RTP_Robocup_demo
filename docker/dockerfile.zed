@@ -6,9 +6,11 @@ ENV PATH=$ZED_ROOT_DIR/bin:$PATH
 ENV CMAKE_PREFIX_PATH=$ZED_ROOT_DIR/cmake:$CMAKE_PREFIX_PATH
 
 RUN apt-get update && apt-get install -y \
-    curl gnupg2 lsb-release \
- && curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add - \
- && sh -c 'echo "deb http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2.list' \
+    curl gnupg2 lsb-release ca-certificates \
+ && gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys F42ED6FBAB17C654 \
+ && gpg --export F42ED6FBAB17C654 > /usr/share/keyrings/ros-archive-keyring.gpg \
+ && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" \
+    > /etc/apt/sources.list.d/ros2.list \
  && apt-get update \
  && apt-get install -y ros-humble-desktop \
  && rm -rf /var/lib/apt/lists/*
@@ -26,11 +28,6 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 ENV CMAKE_PREFIX_PATH=/opt/ros/humble:$CMAKE_PREFIX_PATH
-
-RUN apt-get update && apt-get install -y curl gnupg lsb-release && \
-    curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key | apt-key add - && \
-    echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros2-latest.list && \
-    apt-get update
 
 RUN mkdir -p /ros2_ws/src && \
     cd /ros2_ws/src && \

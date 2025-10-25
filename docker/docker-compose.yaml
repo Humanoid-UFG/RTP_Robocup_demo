@@ -31,7 +31,7 @@ services:
 
   robocup_demo:
     container_name: robocup_demo_container
-    image: robocup_demo_image
+    image: robocup_demo:latest
     network_mode: host
     runtime: nvidia
     tty: true 
@@ -48,9 +48,9 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ~/.Xauthority:/home/booster/.Xauthority:rw
-      - ./src:/home/booster/booster_ws/src
-      - ./configs:/home/booster/booster_ws/configs
-      - ./scripts:/home/booster/booster_ws/scripts
+      - ./../src:/home/booster/booster_ws/src
+      - ./../configs:/home/booster/booster_ws/configs
+      - ./../scripts:/home/booster/booster_ws/scripts
     command: >
       bash -c "
         source /opt/ros/humble/setup.bash &&

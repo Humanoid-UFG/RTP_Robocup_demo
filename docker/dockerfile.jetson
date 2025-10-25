@@ -52,9 +52,9 @@ RUN git clone https://github.com/BoosterRobotics/booster_robotics_sdk.git /tmp/b
 
 WORKDIR /home/${USER_NAME}/booster_ws
 
-COPY --chown=${USER_NAME}:${USER_NAME} scripts/ ./scripts/
-COPY --chown=${USER_NAME}:${USER_NAME} src/ ./src/
-COPY --chown=${USER_NAME}:${USER_NAME} configs/ ./configs/
+#COPY --chown=${USER_NAME}:${USER_NAME} scripts/ ./scripts/
+#COPY --chown=${USER_NAME}:${USER_NAME} src/ ./src/
+#COPY --chown=${USER_NAME}:${USER_NAME} configs/ ./configs/
 
 RUN chown -R booster:booster /home/booster
 
@@ -63,10 +63,11 @@ USER ${USER_NAME}
 ENV OPENSSL_ROOT_DIR=/usr
 ENV OPENSSL_LIBRARIES=/usr/lib/aarch64-linux-gnu
 ENV LD_LIBRARY_PATH=/usr/lib/aarch64-linux-gnu:$LD_LIBRARY_PATH
+ENV OPENSSL_INCLUDE_DIR=/usr/include:$OPENSSL_INCLUDE_DIR
 
+RUN echo "source /opt/ros/humble/setup.bash" >> /home/${USER_NAME}/.bashrc
 
-#RUN bash -c "source /opt/ros/humble/setup.bash && ./scripts/build.sh"
-#RUN echo "source /opt/ros/humble/setup.bash" >> /home/${USER_NAME}/.bashrc && \
+#RUN bash -c "source /opt/ros/humble/setup.bash && ./scripts/build.sh && \"
 #    echo "source /home/${USER_NAME}/booster_ws/install/setup.bash" >> /home/${USER_NAME}/.bashrc
 
 
