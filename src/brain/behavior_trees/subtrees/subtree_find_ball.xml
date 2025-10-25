@@ -1,0 +1,20 @@
+<!-- 摄像头跟踪球 -->
+
+<root BTCPP_format="4" >
+  <BehaviorTree ID="FindBall">
+     <Sequence name="root">
+        <ReactiveSequence>
+            <GoBackInField />
+        </ReactiveSequence>
+        <TurnOnSpot rad="3.14"  towards_ball="true"/>
+        <ReactiveSequence>
+            <GoBackInField />
+        </ReactiveSequence>
+        <ReactiveSequence>
+          <MoveToPoseOnField x="-2.0" _while="player_role == 'striker'" vtheta_limit="2.0"  vx_limit="0.4" />
+          <MoveToPoseOnField x="-5.5" _while="player_role == 'goal_keeper'" vtheta_limit="2.0"  vx_limit="0.4" />
+          <Sleep msec="5000" />
+        </ReactiveSequence>
+      </Sequence>
+  </BehaviorTree>
+</root>
