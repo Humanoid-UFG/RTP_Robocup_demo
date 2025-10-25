@@ -1,0 +1,61 @@
+services:
+
+  zed_camera:
+    container_name: zed_camera
+    image: zed:5.0
+    network_mode: host
+    runtime: nvidia
+    tty: true
+    build:
+      context: .
+      dockerfile: dockerfile.zed
+    devices:
+      - "/dev/video0:/dev/video0"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ~/.Xauthority:/home/booster/.Xauthority:rw
+      - /tmp/argus_socket:/tmp/argus_socket
+      - /usr/local/zed/resources:/usr/local/zed/resources:rw
+      - ./configs:/ros2_ws/configs
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/home/booster/.Xauthority 
+      - FASTRTPS_DEFAULT_PROFILES_FILE=/ros2_ws/configs/fastdds.xml
+    command: >
+      bash -c "
+        source /opt/ros/humble/setup.bash &&
+        source /ros2_ws/install/setup.bash &&
+        ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed
+      "
+
+  robocup_demo:
+    container_name: robocup_demo_v1
+    image: robocup_demo_v1:1.0
+    network_mode: host
+    runtime: nvidia
+    tty: true 
+    build:
+      context: .
+      dockerfile: dockerfile.jetson
+    environment:
+    - DISPLAY=${DISPLAY}
+    - QT_X11_NO_MITSHM=1
+    - XAUTHORITY=/home/booster/.Xauthority 
+    - FASTRTPS_DEFAULT_PROFILES_FILE=/home/booster/booster_ws/configs/fastdds.xml
+    depends_on:
+      - zed_camera
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ~/.Xauthority:/home/booster/.Xauthority:rw
+      - ./src:/home/booster/booster_ws/src
+      - ./configs:/home/booster/booster_ws/configs
+      - ./scripts:/home/booster/booster_ws/scripts
+    command: >
+      bash -c "
+        source /opt/ros/humble/setup.bash &&
+        source install/setup.bash &&
+        ./scripts/start.sh &&
+        echo DONE! &&
+        tail -f /dev/null
+      "
