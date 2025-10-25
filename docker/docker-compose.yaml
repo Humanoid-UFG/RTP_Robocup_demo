@@ -30,8 +30,8 @@ services:
       "
 
   robocup_demo:
-    container_name: robocup_demo_v1
-    image: robocup_demo_v1:1.0
+    container_name: robocup_demo_container
+    image: robocup_demo_image
     network_mode: host
     runtime: nvidia
     tty: true 
