@@ -234,3 +234,17 @@ Follow these steps to transition the robot through its various operational modes
 For more detailed information regarding the project, please refer to the complete documentation:
 
 [English Version](https://booster.feishu.cn/wiki/XY6Kwrq1bizif4kq7X9c14twnle)
+
+
+# Team Talos UFG - 2025
+
+- Lucas Reis - [LucasReis123](https://github.com/LucasReis123)
+- Lucas Ólives -[ lucasolives](https://github.com/lucasolives)
+- Gabriel Pettro - [gpettro](https://github.com/gpettro)
+- Jose Gabriel - [GabrielJJ](https://github.com/GabrielJJ)
+- Marcos Paulo - [marcospaulo429](https://github.com/marcospaulo429)
+- Miguel - [miguelccs10](https://github.com/miguelccs10)
+- Juan - [juanrbfs](https://github.com/juanrbfs)
+- Victor Matteus - [victormatteus04](https://github.com/victormatteus04)
+- Adriano Santana - [scadriano](https://github.com/scadriano)
+---
